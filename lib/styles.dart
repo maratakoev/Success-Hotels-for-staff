@@ -5,6 +5,11 @@ const TextStyle commonTextStyle = TextStyle(
     fontFamily: 'Philosopher',
     color: Color.fromRGBO(59, 59, 59, 1));
 
+const TextStyle dataClockTextStyle = TextStyle(
+    fontSize: 16,
+    fontFamily: 'Philosopher',
+    color: Color.fromRGBO(255, 255, 255, 1));
+
 const firstButton = ButtonStyle(
     shape: WidgetStatePropertyAll(RoundedRectangleBorder(
         borderRadius: BorderRadius.all(Radius.circular(15)))));
@@ -25,6 +30,11 @@ const BoxDecoration commonButtonStyle = BoxDecoration(
   ),
 );
 
+BoxDecoration logOutButtonStyle = BoxDecoration(
+    border: Border.all(color: Colors.grey),
+    borderRadius: const BorderRadius.all(Radius.circular(25)),
+    color: Colors.white);
+
 const TextStyle dropDownButtonText = TextStyle(
   fontFamily: 'Philosopher',
   fontSize: 14,
@@ -34,6 +44,12 @@ const TextStyle dropDownButtonText = TextStyle(
 );
 
 const TextStyle newOrdersTitle = TextStyle(
+    fontSize: 24,
+    fontWeight: FontWeight.w700,
+    fontFamily: 'Philosopher',
+    color: Color.fromRGBO(59, 59, 59, 1));
+
+const TextStyle navBarHeader = TextStyle(
     fontSize: 24,
     fontWeight: FontWeight.w700,
     fontFamily: 'Philosopher',
@@ -60,5 +76,64 @@ const TextStyle clientsNavBar = TextStyle(
 const TextStyle scannerTextStyle = TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.w400,
+    fontFamily: 'Philosopher',
+    color: Color.fromRGBO(59, 59, 59, 1));
+
+const TextStyle logOutButtonTextStyle = TextStyle(
+    fontSize: 20,
+    fontWeight: FontWeight.w400,
+    fontFamily: 'Philosopher',
+    color: Color.fromRGBO(59, 59, 59, 1));
+
+const TextStyle orderStatusTextStyle = TextStyle(
+    fontSize: 13,
+    fontWeight: FontWeight.w400,
+    fontFamily: 'Philosopher',
+    color: Color.fromRGBO(69, 69, 69, 1));
+
+const TextStyle orderStatusDoneTextStyle = TextStyle(
+    fontSize: 13,
+    fontWeight: FontWeight.w400,
+    fontFamily: 'Philosopher',
+    color: Color.fromRGBO(71, 179, 110, 1));
+
+const TextStyle orderCanceledTextStyle = TextStyle(
+    fontSize: 11,
+    fontWeight: FontWeight.w400,
+    fontFamily: 'Philosopher',
+    color: Color.fromRGBO(69, 69, 69, 1));
+
+const TextStyle staffAppOrderButtonTextStyle = TextStyle(
+    fontSize: 12,
+    fontWeight: FontWeight.w400,
+    fontFamily: 'Philosopher',
+    color: Colors.white);
+
+const BoxDecoration staffAppOrderButtonStyle = BoxDecoration(
+  borderRadius: BorderRadius.all(Radius.circular(15)),
+  gradient: LinearGradient(
+    colors: [
+      Color.fromRGBO(255, 123, 147, 1),
+      Color.fromRGBO(250, 29, 29, 1),
+    ],
+  ),
+);
+
+BoxDecoration staffAppDialogWindowStyle = BoxDecoration(
+  borderRadius: BorderRadius.circular(15),
+  color: Colors.white,
+  boxShadow: [
+    BoxShadow(
+      color: Colors.black.withOpacity(0.2), // Цвет тени
+      spreadRadius: 0.02, // Радиус распространения
+      blurRadius: 10, // Размытие
+      offset: const Offset(0, 3), // Смещение по оси X и Y
+    ),
+  ],
+);
+
+const TextStyle staffAppDialogWindowTitleStyle = TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.w700,
     fontFamily: 'Philosopher',
     color: Color.fromRGBO(59, 59, 59, 1));

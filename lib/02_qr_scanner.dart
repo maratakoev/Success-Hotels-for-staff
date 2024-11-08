@@ -1,5 +1,7 @@
-import './auth_screen_second.dart';
+import 'package:hotels_clients_app/03_nav_bar.dart';
+
 import 'package:flutter/material.dart';
+import 'package:hotels_clients_app/repository/api_service.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'styles.dart';
 
@@ -15,6 +17,9 @@ class _BarcodeScannerSimpleState extends State<BarcodeScannerSimple> {
   Color cornerColor = Colors.white;
   bool buttonActive = false; // Состояние кнопки
 
+  // Создайте экземпляр ApiService
+  final ApiService apiService = ApiService();
+
   void _handleBarcode(BarcodeCapture barcodes) {
     if (mounted) {
       setState(() {
@@ -22,6 +27,10 @@ class _BarcodeScannerSimpleState extends State<BarcodeScannerSimple> {
       });
 
       if (_barcode != null) {
+        // Выводим значение баркода в консоль
+        print(
+            'Баркод отсканирован и вот его содержимое: ${_barcode!.rawValue}');
+
         // Изменяем цвет углов
         Future.delayed(const Duration(seconds: 2), () {
           if (mounted) {
@@ -29,9 +38,46 @@ class _BarcodeScannerSimpleState extends State<BarcodeScannerSimple> {
               cornerColor = Colors.green; // Изменяем цвет углов
               buttonActive = true; // Активируем кнопку
             });
+            // Здесь мы можем вызвать метод для логина
+            _login(); // Отправляем баркод на сервер
           }
         });
       }
+    }
+  }
+
+  // Добавьте метод здесь
+  void _showErrorDialog(BuildContext context, String message) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Ошибка'),
+          content: Text(message),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Закрыть диалог
+              },
+              child: Text('OK'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  // Метод для вызова логина
+  void _login() async {
+    if (_barcode != null && _barcode!.rawValue != null) {
+      await apiService.loginUser(
+        barcode: _barcode!
+            .rawValue!, // Используем `!`, чтобы указать, что значение не будет null
+        context: context,
+      );
+    } else {
+      // Обработайте случай, когда barcode равен null или rawValue равен null
+      _showErrorDialog(context, 'Код не найден. Пожалуйста, попробуйте снова.');
     }
   }
 
@@ -176,7 +222,7 @@ class Button extends StatelessWidget {
             ? () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => const AuthScreenSecond(),
+                    builder: (context) => const NavBar(),
                   ),
                 );
               }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import './second_screen.dart';
+import 'package:hotels_clients_app/02_qr_scanner.dart';
+import 'package:hotels_clients_app/03_nav_bar.dart';
 import 'styles.dart';
 
 void main() {
@@ -12,63 +13,69 @@ class HotelsClientsApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    const primaryColor = Color(0xfff82b10);
     return MaterialApp(
       title: 'Hotels_Clients_App',
       theme: ThemeData(
-        primaryColor: primaryColor,
         scaffoldBackgroundColor: const Color(0xffeff1f3),
-        colorScheme: ColorScheme.fromSeed(seedColor: primaryColor),
+        // colorScheme: ColorScheme.fromSeed(seedColor: primaryColor),
         useMaterial3: true,
       ),
-      home: const FirstScreen(),
+      home: const LoginForm(),
     );
   }
 }
 
-class FirstScreen extends StatefulWidget {
-  const FirstScreen({super.key});
+class LoginForm extends StatefulWidget {
+  const LoginForm({super.key});
 
   @override
-  State<FirstScreen> createState() => _FirstScreenState();
+  State<LoginForm> createState() => _LoginFormState();
 }
 
-class _FirstScreenState extends State<FirstScreen> {
+class _LoginFormState extends State<LoginForm> {
+  final _formKey = GlobalKey<FormState>();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    super.dispose();
+    emailController.dispose();
+    passwordController.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color.fromRGBO(250, 253, 255, 1),
-      body: Center(
-        child: Column(
-          children: [
-            const SizedBox(height: 102),
-            Image.asset('assets/images/logo.png'),
-            const SizedBox(height: 60),
-            Image.asset('assets/images/imagefirst.png'),
-            const SizedBox(height: 102),
-            const TitleFirst(),
-            const SizedBox(height: 102),
-            const Button()
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class TitleFirst extends StatelessWidget {
-  const TitleFirst({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const SizedBox(
-      width: 297,
-      child: Text(
-        'Заказывайте услуги отеля из любого места онлайн',
-        textAlign: TextAlign.center,
-        softWrap: true,
-        style: commonTextStyle,
-      ),
+      body: Form(
+          key: _formKey,
+          child: ListView(
+            children: [
+              Column(
+                children: [
+                  Image.asset('assets/images/logo.png'),
+                  const SizedBox(height: 24),
+                  const Text(
+                    'Работникам отеля',
+                    style: navBarHeader,
+                  ),
+                  const SizedBox(height: 27),
+                  const SizedBox(
+                    width: 200,
+                    child: Text(
+                      textAlign: TextAlign
+                          .center, // Добавлено для выравнивания текста по центру
+                      'Для входа в личный кабинет отсканируйте ваш QRcode',
+                      style: scannerTextStyle,
+                    ),
+                  ),
+                  const SizedBox(height: 64),
+                  const Button(),
+                ],
+              )
+            ],
+          )),
     );
   }
 }
@@ -88,14 +95,26 @@ class _ButtonState extends State<Button> {
       height: 57,
       decoration: commonButtonStyle,
       child: TextButton(
-          style: const ButtonStyle(
-              shape: WidgetStatePropertyAll(RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(15))))),
-          onPressed: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const SecondScreen()));
-          },
-          child: const Text('Понятно', style: buttonTextStyle)),
+        style: const ButtonStyle(
+          shape: WidgetStatePropertyAll(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(
+                Radius.circular(15),
+              ),
+            ),
+          ),
+        ),
+        onPressed: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const BarcodeScannerSimple()));
+        },
+        child: const Text(
+          'Сканировать QR',
+          style: buttonTextStyle,
+        ),
+      ),
     );
   }
 }
